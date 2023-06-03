@@ -6,9 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <h1 class="green-text">Your unshortened URL is:</h1>
-    <p>{{ url }}</p>
-    <br><br>
-    <a href="/" class="home-button">Home</a>
+    {% if redirURL.history and redirURL.history[0].status_code in (301, 302) %}
+        <h1 class="green-text">Your unshortened URL is:</h1>
+        <p>{{ redirURL.url }}</p>
+        <br><br>
+        <a href="/" class="home-button">Home</a>
+    {% elif redirURL.status_code == 200 %}
+        <h1 class="green-text">200</h1>
+        <p>This url doesn't go anywhere/isn't shortened.</p>
+    {% endif %}
 </body>
 </html>
