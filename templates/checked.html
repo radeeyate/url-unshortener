@@ -9,11 +9,23 @@
     {% if redirURL.history and redirURL.history[0].status_code in (301, 302) %}
         <h1 class="green-text">Your unshortened URL is:</h1>
         <p>{{ redirURL.url }}</p>
+        <br>
+        <h1 class="green-text">Redirection List</h1>
+        <ol>
+        {% for item in redirURL.history %}
+        <li> {{ item.url }}</li><lbr>
+        {% endfor %}
+        <ol>
         <br><br>
         <a href="/" class="home-button">Home</a>
-    {% elif redirURL.status_code == 200 %}
+    {% elif redirURL.status_code == 200 and redirURL.url == url %}
         <h1 class="green-text">200</h1>
         <p>This url doesn't go anywhere/isn't shortened.</p>
+    {% elif redirURL.status_code == 404 %}
+            <h1 class="red-text">Not Found</h1>
+            <p>That link doesn't seem to exist!</p>
+            <br><br>
+            <a href="/" class="home-button">Home</a>
     {% endif %}
 </body>
 </html>
